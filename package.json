@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node dist/server.js",
+    "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -19,9 +19,17 @@
     "express": "^4.21.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.3"
+    "mongoose": "^8.7.3",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.9",
     "nodemon": "^3.1.7"
   }
 }

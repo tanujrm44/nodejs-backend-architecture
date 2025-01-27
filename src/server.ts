@@ -1,11 +1,11 @@
 import express from "express"
 import cors from "cors"
-import "./database/index.js"
+import "./database/index"
 import cookieParser from "cookie-parser"
-import userRoutes from "./routes/userRoutes.js"
-import { corsUrl, port } from "./config.js"
-import todoRoutes from "./routes/todoRoutes.js"
-import { errorHandler } from "./middleware/errorMiddleware.js"
+import userRoutes from "./routes/userRoutes"
+import { corsUrl, port } from "./config"
+import todoRoutes from "./routes/todoRoutes"
+import { errorHandler } from "./middleware/errorMiddleware"
 
 const PORT = port ?? 8080
 

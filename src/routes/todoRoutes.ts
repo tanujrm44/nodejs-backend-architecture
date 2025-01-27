@@ -4,8 +4,8 @@ import {
   getTodos,
   editTodo,
   deleteTodo,
-} from "../controllers/todoController.js"
-import { protect } from "../middleware/authMiddleware.js"
+} from "../controllers/todoController"
+import { protect } from "../middleware/authMiddleware"
 const router = express.Router()
 
 router.route("/").post(protect, createTodo).get(protect, getTodos)
