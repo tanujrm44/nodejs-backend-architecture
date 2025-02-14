@@ -16,6 +16,7 @@ exports.logoutUser = exports.registerUser = exports.loginUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
+const CustomError_1 = require("../core/CustomError");
 const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { email, password } = req.body;
@@ -29,8 +30,7 @@ const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(v
         });
     }
     else {
-        res.status(401);
-        throw new Error(" Invalid email or password");
+        throw new CustomError_1.BadRequestError("Invalid User Credentials");
     }
 }));
 exports.loginUser = loginUser;
@@ -52,8 +52,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         });
     }
     else {
-        res.status(400);
-        throw new Error("Invalid User Credentials");
+        throw new CustomError_1.BadRequestError("Invalid user credentials");
     }
 }));
 exports.registerUser = registerUser;

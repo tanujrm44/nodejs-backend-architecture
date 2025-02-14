@@ -1,0 +1,12 @@
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:46:14.465Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:47:42.265Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:47:50.539Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:49:26.516Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:51:19.160Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T14:51:58.874Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T15:15:48.490Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T15:29:56.379Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T15:31:55.500Z"}
+{"level":"error","message":"500 - Invalid User Credentials - /api/users/login - POST - ::1","timestamp":"2025-02-06T15:32:09.668Z"}
+{"level":"error","message":"Error: Invalid User Credentials\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:33:15\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:5:58)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-02-06T15:32:09.674Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-02-06T15:32:54.370Z"}

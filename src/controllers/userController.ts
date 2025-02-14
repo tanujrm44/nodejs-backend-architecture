@@ -4,6 +4,7 @@ import generateToken from "../utils/generateToken"
 import { ProtectedRequest } from "../../types/app-request"
 import { Response } from "express"
 import mongoose from "mongoose"
+import { BadRequestError } from "../core/CustomError"
 
 const loginUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
   const { email, password } = req.body
@@ -18,8 +19,7 @@ const loginUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
       email: user.email,
     })
   } else {
-    res.status(401)
-    throw new Error(" Invalid email or password")
+    throw new BadRequestError("Invalid User Credentials")
   }
 })
 
@@ -45,8 +45,7 @@ const registerUser = asyncHandler(
         email: user.email,
       })
     } else {
-      res.status(400)
-      throw new Error("Invalid User Credentials")
+      throw new BadRequestError("Invalid user credentials")
     }
   }
 )
