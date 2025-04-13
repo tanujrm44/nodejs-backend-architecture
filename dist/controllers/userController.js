@@ -17,9 +17,14 @@ const userModel_1 = __importDefault(require("../models/userModel"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
 const CustomError_1 = require("../core/CustomError");
+const userSchema_1 = require("../routes/userSchema");
 const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { email, password } = req.body;
+    const data = userSchema_1.userLoginSchema.safeParse({ email, password });
+    if (!data.success) {
+        throw new CustomError_1.BadRequestError("Invalid User Credentials");
+    }
     const user = yield userModel_1.default.findOne({ email });
     if (user && (yield ((_a = user === null || user === void 0 ? void 0 : user.matchPassword) === null || _a === void 0 ? void 0 : _a.call(user, password)))) {
         (0, generateToken_1.default)(res, user._id);

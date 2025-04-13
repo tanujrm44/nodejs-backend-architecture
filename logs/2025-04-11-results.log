@@ -1,0 +1,63 @@
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T13:59:55.714Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T13:59:55.784Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T13:59:56.279Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T13:59:56.281Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:07:16.457Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:07:16.525Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:07:16.566Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:07:16.567Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:07:45.416Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:07:45.487Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:07:45.523Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:07:45.523Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:08:58.808Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:08:58.877Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:08:58.931Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:08:58.932Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:09:52.027Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:09:52.351Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:09:53.214Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:09:53.215Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:10:32.695Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:10:32.759Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:10:32.913Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:10:32.914Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:12:28.255Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:12:28.332Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:12:28.384Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:12:28.385Z"}
+{"level":"error","message":"500 - Invalid User Credentials - /api/users/login - POST - ::1","timestamp":"2025-04-11T14:14:13.623Z"}
+{"level":"error","message":"Error: Invalid User Credentials\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:26:15\n    at Generator.next (<anonymous>)\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:4:12)\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:21:70\n    at asyncUtilWrap (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express-async-handler@1.2.0/node_modules/express-async-handler/index.js:3:20)\n    at Layer.handle [as handle_request] (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/route.js:119:3)","timestamp":"2025-04-11T14:14:13.628Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:15:56.218Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:15:56.300Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:15:56.336Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:15:56.338Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:21:48.301Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:21:48.368Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:21:48.455Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:21:48.456Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:27:13.777Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:27:13.847Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:27:13.892Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:27:13.893Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:27:30.113Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:27:30.179Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:27:30.225Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:27:30.226Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:29:02.485Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-11T14:29:02.554Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T14:29:02.605Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-11T14:29:02.606Z"}
+{"level":"error","message":"500 - Inavlid email - /api/users/login - POST - ::1","timestamp":"2025-04-11T14:29:54.888Z"}
+{"level":"error","message":"Error: Inavlid email\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/helpers/validator.js:23:29\n    at Layer.handle [as handle_request] (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/route.js:149:13)\n    at Route.dispatch (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/route.js:119:3)\n    at Layer.handle [as handle_request] (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/layer.js:95:5)\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:175:3)\n    at router (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/router/index.js:47:12)","timestamp":"2025-04-11T14:29:54.892Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T15:23:50.104Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T15:35:52.386Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T15:53:38.769Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T16:10:24.512Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T16:38:08.772Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T16:54:59.354Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T17:12:49.637Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T17:15:26.386Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T17:19:21.029Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-11T17:19:31.049Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-11T17:19:52.531Z"}
