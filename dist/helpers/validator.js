@@ -7,7 +7,7 @@ var ValidationSource;
 (function (ValidationSource) {
     ValidationSource["BODY"] = "body";
     ValidationSource["QUERY"] = "query";
-    ValidationSource["HEADER"] = "header";
+    ValidationSource["HEADER"] = "headers";
     ValidationSource["PARAM"] = "params";
 })(ValidationSource || (exports.ValidationSource = ValidationSource = {}));
 const validateRequest = (schema, source = ValidationSource.BODY) => {

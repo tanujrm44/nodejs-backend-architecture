@@ -44,6 +44,8 @@ const router = express_1.default.Router();
 router
     .route("/login")
     .post((0, validator_1.default)(userSchema_1.userLoginSchema, validator_1.ValidationSource.BODY), userController_1.loginUser);
-router.route("/register").post(userController_1.registerUser);
+router
+    .route("/register")
+    .post((0, validator_1.default)(userSchema_1.userRegisterSchema, validator_1.ValidationSource.BODY), userController_1.registerUser);
 router.route("/logout").get(userController_1.logoutUser);
 exports.default = router;

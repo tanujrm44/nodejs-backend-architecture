@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connection = void 0;
+exports.connection = exports.dbURI = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const Logger_1 = __importDefault(require("../core/Logger"));
 const config_1 = require("../config");
 // Build the connection string
-const dbURI = `mongodb://${config_1.db.user}:${encodeURIComponent(config_1.db.password)}@${config_1.db.host}:${config_1.db.port}/${config_1.db.name}`;
+exports.dbURI = `mongodb://${config_1.db.user}:${encodeURIComponent(config_1.db.password)}@${config_1.db.host}:${config_1.db.port}/${config_1.db.name}`;
 const options = {
     autoIndex: true,
     minPoolSize: config_1.db.minPoolSize,
@@ -16,7 +16,7 @@ const options = {
     connectTimeoutMS: 10000,
     socketTimeoutMS: 45000,
 };
-Logger_1.default.debug(dbURI);
+Logger_1.default.debug(exports.dbURI);
 function setRunValidators() {
     return { runValidators: true };
 }
@@ -29,7 +29,7 @@ mongoose_1.default
     schema.pre("updateOne", setRunValidators);
     schema.pre("update", setRunValidators);
 })
-    .connect(dbURI, options)
+    .connect(exports.dbURI, options)
     .then(() => {
     Logger_1.default.info("Mongoose connection done");
 })
@@ -40,7 +40,7 @@ mongoose_1.default
 // CONNECTION EVENTS
 // When successfully connected
 mongoose_1.default.connection.on("connected", () => {
-    Logger_1.default.debug("Mongoose default connection open to " + dbURI);
+    Logger_1.default.debug("Mongoose default connection open to " + exports.dbURI);
 });
 // If the connection throws an error
 mongoose_1.default.connection.on("error", err => {
