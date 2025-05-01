@@ -1,0 +1,17 @@
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:02:50.184Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-27T14:02:50.287Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:02:50.346Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-27T14:02:50.347Z"}
+{"level":"error","message":"500 - Invalid User Credentials - /api/users/login - POST - ::1","timestamp":"2025-04-27T14:03:12.054Z"}
+{"level":"error","message":"Error: Invalid User Credentials\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:57:15\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:5:58)","timestamp":"2025-04-27T14:03:12.056Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:04:04.162Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-27T14:04:04.241Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:04:04.284Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-27T14:04:04.284Z"}
+{"level":"debug","message":"mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:04:14.666Z"}
+{"level":"info","message":"server running on port : 8080","timestamp":"2025-04-27T14:04:14.737Z"}
+{"level":"debug","message":"Mongoose default connection open to mongodb://root:Ahit1234@localhost:27017/todo","timestamp":"2025-04-27T14:04:14.779Z"}
+{"level":"info","message":"Mongoose connection done","timestamp":"2025-04-27T14:04:14.780Z"}
+{"level":"error","message":"500 - Invalid User Credentials - /api/users/login - POST - ::1","timestamp":"2025-04-27T14:04:28.404Z"}
+{"level":"error","message":"Error: Invalid User Credentials\n    at /Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:57:15\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/tanujmalode/Desktop/My Code/nodejs-backend-architecture/dist/controllers/userController.js:5:58)","timestamp":"2025-04-27T14:04:28.405Z"}
+{"level":"info","message":"Mongoose default connection disconnected","timestamp":"2025-04-27T14:13:22.866Z"}

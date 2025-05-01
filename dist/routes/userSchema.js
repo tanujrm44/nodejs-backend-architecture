@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRegisterSchema = exports.userLoginSchema = void 0;
+exports.refreshTokenSchema = exports.userRegisterSchema = exports.userLoginSchema = void 0;
 const zod_1 = require("zod");
 exports.userLoginSchema = zod_1.z.object({
     email: zod_1.z.string().email({
@@ -23,4 +23,7 @@ exports.userRegisterSchema = zod_1.z.object({
         .max(20, {
         message: "Password must be at most 20 characters long",
     }),
+});
+exports.refreshTokenSchema = zod_1.z.object({
+    refreshToken: zod_1.z.string(),
 });

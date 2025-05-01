@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTodo = exports.editTodo = exports.getTodos = exports.createTodo = void 0;
-const express_async_handler_1 = __importDefault(require("express-async-handler"));
+const asyncHandler_1 = __importDefault(require("../helpers/asyncHandler"));
 const todoModel_1 = __importDefault(require("../models/todoModel"));
-const createTodo = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createTodo = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description } = req.body;
     console.log(req.user);
     if (!title || !description) {
@@ -26,7 +26,7 @@ const createTodo = (0, express_async_handler_1.default)((req, res) => __awaiter(
     res.status(201).json({ title, description });
 }));
 exports.createTodo = createTodo;
-const getTodos = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getTodos = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     const todos = yield todoModel_1.default.find({
         user: user,
@@ -34,7 +34,7 @@ const getTodos = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     res.json(todos);
 }));
 exports.getTodos = getTodos;
-const editTodo = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const editTodo = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, status } = req.body;
     const user = req.user;
     if (!title || !description || !status) {
@@ -57,7 +57,7 @@ const editTodo = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     res.json(updatedTodo);
 }));
 exports.editTodo = editTodo;
-const deleteTodo = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteTodo = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const todo = yield todoModel_1.default.findById(req.params.id);
     if (todo) {
         yield todo.deleteOne();

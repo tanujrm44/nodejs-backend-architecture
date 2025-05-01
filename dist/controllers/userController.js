@@ -12,13 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logoutUser = exports.registerUser = exports.loginUser = void 0;
+exports.logoutUser = exports.registerUser = exports.loginUser = exports.refreshAccessToken = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
-const express_async_handler_1 = __importDefault(require("express-async-handler"));
+const asyncHandler_1 = __importDefault(require("../helpers/asyncHandler"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
+const mongoose_1 = require("mongoose");
 const CustomError_1 = require("../core/CustomError");
 const userSchema_1 = require("../routes/userSchema");
-const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const crypto_1 = __importDefault(require("crypto"));
+const KeyStoreController_1 = require("./KeyStoreController");
+const utils_1 = require("../auth/utils");
+const config_1 = require("../config");
+const JWT_1 = __importDefault(require("../core/JWT"));
+const KeyStoreModel_1 = require("../models/KeyStoreModel");
+const loginUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { email, password } = req.body;
     const data = userSchema_1.userLoginSchema.safeParse({ email, password });
@@ -27,7 +34,22 @@ const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(v
     }
     const user = yield userModel_1.default.findOne({ email });
     if (user && (yield ((_a = user === null || user === void 0 ? void 0 : user.matchPassword) === null || _a === void 0 ? void 0 : _a.call(user, password)))) {
-        (0, generateToken_1.default)(res, user._id);
+        const accessTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+        const refreshTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+        yield (0, KeyStoreController_1.create)(user, accessTokenKey, refreshTokenKey);
+        const tokens = yield (0, utils_1.createTokens)(user, accessTokenKey, refreshTokenKey);
+        res.cookie("accessToken", tokens.accessToken, {
+            httpOnly: true,
+            secure: config_1.environment === "production",
+            sameSite: "strict",
+            maxAge: 24 * 60 * 60 * 1000, //ms
+        });
+        res.cookie("refreshToken", tokens.refreshToken, {
+            httpOnly: true,
+            secure: config_1.environment === "production",
+            sameSite: "strict",
+            maxAge: 30 * 24 * 60 * 60 * 1000, //ms
+        });
         res.json({
             _id: user._id,
             name: user.name,
@@ -39,7 +61,7 @@ const loginUser = (0, express_async_handler_1.default)((req, res) => __awaiter(v
     }
 }));
 exports.loginUser = loginUser;
-const registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const registerUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
     const userExists = yield userModel_1.default.findOne({ email });
     if (userExists) {
@@ -61,6 +83,44 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     }
 }));
 exports.registerUser = registerUser;
+exports.refreshAccessToken = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    req.accessToken = (0, utils_1.getAccessToken)(req.headers.authorization);
+    const accessTokenPayload = yield JWT_1.default.decode(req.accessToken);
+    (0, utils_1.validateTokenData)(accessTokenPayload);
+    const user = yield userModel_1.default.findById(new mongoose_1.Types.ObjectId(accessTokenPayload.sub));
+    if (!user)
+        throw new CustomError_1.BadRequestError("User not registered");
+    req.user = user;
+    const refreshTokenPayload = yield JWT_1.default.validate(req.body.refreshToken, config_1.tokenInfo.secret);
+    (0, utils_1.validateTokenData)(refreshTokenPayload);
+    if (accessTokenPayload.sub !== refreshTokenPayload.sub)
+        throw new CustomError_1.BadRequestError("Invalid access token");
+    const keystore = yield KeyStoreModel_1.KeyStoreModel.find({
+        client: req.user,
+        primaryKey: accessTokenPayload.prm,
+        secondaryKey: refreshTokenPayload.prm,
+    });
+    if (!keystore)
+        throw new CustomError_1.BadRequestError("Invalid access token");
+    yield KeyStoreModel_1.KeyStoreModel.deleteOne({
+        client: req.user,
+        primaryKey: accessTokenPayload.prm,
+        secondaryKey: refreshTokenPayload.prm,
+    });
+    const accessTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+    const refreshTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+    yield (0, KeyStoreController_1.create)(req.user, accessTokenKey, refreshTokenKey);
+    const tokens = yield (0, utils_1.createTokens)(req.user, accessTokenKey, refreshTokenKey);
+    res.cookie("accessToken", tokens.accessToken, {
+        httpOnly: true,
+        secure: config_1.environment === "production",
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000, //ms
+    });
+    res.status(200).json({
+        message: "Access Token Refreshed",
+    });
+}));
 // const forgotPassword = asyncHandler(
 //   async (req: ProtectedRequest, res: Response) => {
 //     const { email } = req.body
@@ -86,7 +146,6 @@ exports.registerUser = registerUser;
 //       user.passwordResetToken = undefined
 //       user.passwordResetExpires = undefined
 //       user.save()
-//       console.log(error)
 //       res.status(500).json({
 //         status: "error",
 //         message:
@@ -124,7 +183,7 @@ exports.registerUser = registerUser;
 //     })
 //   }
 // )
-const logoutUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const logoutUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(0),

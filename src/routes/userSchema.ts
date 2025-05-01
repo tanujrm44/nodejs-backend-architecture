@@ -23,3 +23,7 @@ export const userRegisterSchema = z.object({
       message: "Password must be at most 20 characters long",
     }),
 })
+
+export const refreshTokenSchema = z.object({
+  refreshToken: z.string(),
+})

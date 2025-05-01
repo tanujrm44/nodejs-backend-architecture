@@ -47,5 +47,8 @@ router
 router
     .route("/register")
     .post((0, validator_1.default)(userSchema_1.userRegisterSchema, validator_1.ValidationSource.BODY), userController_1.registerUser);
+router
+    .route("/refresh")
+    .post((0, validator_1.default)(userSchema_1.refreshTokenSchema, validator_1.ValidationSource.BODY), userController_1.refreshAccessToken);
 router.route("/logout").get(userController_1.logoutUser);
 exports.default = router;

@@ -2,10 +2,15 @@ import express from "express"
 import {
   loginUser,
   logoutUser,
+  refreshAccessToken,
   registerUser,
 } from "../controllers/userController"
 import validateRequest, { ValidationSource } from "../helpers/validator"
-import { userLoginSchema, userRegisterSchema } from "./userSchema"
+import {
+  refreshTokenSchema,
+  userLoginSchema,
+  userRegisterSchema,
+} from "./userSchema"
 import apiKey from "../auth/apiKey"
 
 const router = express.Router()
@@ -18,6 +23,12 @@ router
   .post(
     validateRequest(userRegisterSchema, ValidationSource.BODY),
     registerUser
+  )
+router
+  .route("/refresh")
+  .post(
+    validateRequest(refreshTokenSchema, ValidationSource.BODY),
+    refreshAccessToken
   )
 router.route("/logout").get(logoutUser)
 

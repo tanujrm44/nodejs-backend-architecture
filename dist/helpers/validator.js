@@ -13,11 +13,13 @@ var ValidationSource;
 const validateRequest = (schema, source = ValidationSource.BODY) => {
     return (req, res, next) => {
         try {
+            console.log("req.headers.authorization", req.headers.authorization);
             const data = schema.parse(req[source]);
             Object.assign(req[source], data);
             next();
         }
         catch (err) {
+            console.log("🚀 ~ return ~ err:", err);
             if (err instanceof zod_1.ZodError) {
                 const message = err.errors.map(e => e.message).join(", ");
                 return next(new CustomError_1.BadRequestError(message));
