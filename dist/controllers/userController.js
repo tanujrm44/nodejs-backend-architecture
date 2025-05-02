@@ -15,16 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.logoutUser = exports.registerUser = exports.loginUser = exports.refreshAccessToken = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const asyncHandler_1 = __importDefault(require("../helpers/asyncHandler"));
-const generateToken_1 = __importDefault(require("../utils/generateToken"));
 const mongoose_1 = require("mongoose");
 const CustomError_1 = require("../core/CustomError");
 const userSchema_1 = require("../routes/userSchema");
 const crypto_1 = __importDefault(require("crypto"));
-const KeyStoreController_1 = require("./KeyStoreController");
+const keyStoreController_1 = require("./keyStoreController");
 const utils_1 = require("../auth/utils");
 const config_1 = require("../config");
 const JWT_1 = __importDefault(require("../core/JWT"));
-const KeyStoreModel_1 = require("../models/KeyStoreModel");
+const keyStoreModel_1 = require("../models/keyStoreModel");
+const roleController_1 = __importDefault(require("./roleController"));
+const roleModel_1 = require("../models/roleModel");
 const loginUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { email, password } = req.body;
@@ -36,7 +37,7 @@ const loginUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, vo
     if (user && (yield ((_a = user === null || user === void 0 ? void 0 : user.matchPassword) === null || _a === void 0 ? void 0 : _a.call(user, password)))) {
         const accessTokenKey = crypto_1.default.randomBytes(64).toString("hex");
         const refreshTokenKey = crypto_1.default.randomBytes(64).toString("hex");
-        yield (0, KeyStoreController_1.create)(user, accessTokenKey, refreshTokenKey);
+        yield (0, keyStoreController_1.create)(user, accessTokenKey, refreshTokenKey);
         const tokens = yield (0, utils_1.createTokens)(user, accessTokenKey, refreshTokenKey);
         res.cookie("accessToken", tokens.accessToken, {
             httpOnly: true,
@@ -62,24 +63,49 @@ const loginUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, vo
 }));
 exports.loginUser = loginUser;
 const registerUser = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password } = req.body;
-    const userExists = yield userModel_1.default.findOne({ email });
-    if (userExists) {
-        res.status(400);
-        throw new Error("User already Exists");
-    }
-    const user = yield userModel_1.default.create({ name, email, password });
-    if (user) {
-        (0, generateToken_1.default)(res, user._id);
-        res.status(201);
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
+    try {
+        const { name, email, password } = req.body;
+        const userExists = yield userModel_1.default.findOne({ email });
+        if (userExists) {
+            res.status(400);
+            throw new Error("User already Exists");
+        }
+        const user = yield userModel_1.default.create({
+            name,
+            email,
+            password,
+            roles: [yield (0, roleController_1.default)(roleModel_1.RoleCode.USER)],
         });
+        if (user) {
+            const accessTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+            const refreshTokenKey = crypto_1.default.randomBytes(64).toString("hex");
+            yield (0, keyStoreController_1.create)(user, accessTokenKey, refreshTokenKey);
+            const tokens = yield (0, utils_1.createTokens)(user, accessTokenKey, refreshTokenKey);
+            res.cookie("accessToken", tokens.accessToken, {
+                httpOnly: true,
+                secure: config_1.environment === "production",
+                sameSite: "strict",
+                maxAge: 24 * 60 * 60 * 1000, //ms
+            });
+            res.cookie("refreshToken", tokens.refreshToken, {
+                httpOnly: true,
+                secure: config_1.environment === "production",
+                sameSite: "strict",
+                maxAge: 30 * 24 * 60 * 60 * 1000, //ms
+            });
+            res.status(201);
+            res.json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+            });
+        }
+        else {
+            throw new CustomError_1.BadRequestError("Invalid user credentials");
+        }
     }
-    else {
-        throw new CustomError_1.BadRequestError("Invalid user credentials");
+    catch (error) {
+        console.log(error);
     }
 }));
 exports.registerUser = registerUser;
@@ -95,21 +121,21 @@ exports.refreshAccessToken = (0, asyncHandler_1.default)((req, res) => __awaiter
     (0, utils_1.validateTokenData)(refreshTokenPayload);
     if (accessTokenPayload.sub !== refreshTokenPayload.sub)
         throw new CustomError_1.BadRequestError("Invalid access token");
-    const keystore = yield KeyStoreModel_1.KeyStoreModel.find({
+    const keystore = yield keyStoreModel_1.KeyStoreModel.find({
         client: req.user,
         primaryKey: accessTokenPayload.prm,
         secondaryKey: refreshTokenPayload.prm,
     });
     if (!keystore)
         throw new CustomError_1.BadRequestError("Invalid access token");
-    yield KeyStoreModel_1.KeyStoreModel.deleteOne({
+    yield keyStoreModel_1.KeyStoreModel.deleteOne({
         client: req.user,
         primaryKey: accessTokenPayload.prm,
         secondaryKey: refreshTokenPayload.prm,
     });
     const accessTokenKey = crypto_1.default.randomBytes(64).toString("hex");
     const refreshTokenKey = crypto_1.default.randomBytes(64).toString("hex");
-    yield (0, KeyStoreController_1.create)(req.user, accessTokenKey, refreshTokenKey);
+    yield (0, keyStoreController_1.create)(req.user, accessTokenKey, refreshTokenKey);
     const tokens = yield (0, utils_1.createTokens)(req.user, accessTokenKey, refreshTokenKey);
     res.cookie("accessToken", tokens.accessToken, {
         httpOnly: true,

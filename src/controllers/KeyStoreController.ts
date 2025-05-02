@@ -1,4 +1,4 @@
-import { KeyStoreModel } from "../models/KeyStoreModel"
+import { KeyStoreModel } from "../models/keyStoreModel"
 import { UserDoc } from "../models/userModel"
 
 async function create(

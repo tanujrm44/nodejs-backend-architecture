@@ -2,7 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tokenInfo = exports.corsUrl = exports.db = exports.logDirectory = exports.port = exports.environment = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -21,10 +21,10 @@ exports.db = {
 };
 exports.corsUrl = process.env.CORS_URL;
 exports.tokenInfo = {
-    accessTokenValidity: parseInt("30"),
-    refreshTokenValidity: parseInt((_c = process.env.REFRESH_TOKEN_VALIDITY_SEC) !== null && _c !== void 0 ? _c : "86400"),
-    issuer: (_d = process.env.TOKEN_ISSUER) !== null && _d !== void 0 ? _d : "",
-    audience: (_e = process.env.TOKEN_AUDIENCE) !== null && _e !== void 0 ? _e : "",
-    secret: (_f = process.env.TOKEN_SECRET) !== null && _f !== void 0 ? _f : "",
-    algorithm: (_g = process.env.TOKEN_ALGORITHM) !== null && _g !== void 0 ? _g : "",
+    accessTokenValidity: parseInt((_c = process.env.ACCESS_TOKEN_VALIDITY_SEC) !== null && _c !== void 0 ? _c : "3600"),
+    refreshTokenValidity: parseInt((_d = process.env.REFRESH_TOKEN_VALIDITY_SEC) !== null && _d !== void 0 ? _d : "86400"),
+    issuer: (_e = process.env.TOKEN_ISSUER) !== null && _e !== void 0 ? _e : "",
+    audience: (_f = process.env.TOKEN_AUDIENCE) !== null && _f !== void 0 ? _f : "",
+    secret: (_g = process.env.TOKEN_SECRET) !== null && _g !== void 0 ? _g : "",
+    algorithm: (_h = process.env.TOKEN_ALGORITHM) !== null && _h !== void 0 ? _h : "",
 };

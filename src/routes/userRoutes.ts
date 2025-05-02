@@ -11,7 +11,6 @@ import {
   userLoginSchema,
   userRegisterSchema,
 } from "./userSchema"
-import apiKey from "../auth/apiKey"
 
 const router = express.Router()
 

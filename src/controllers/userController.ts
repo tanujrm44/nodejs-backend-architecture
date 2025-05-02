@@ -6,12 +6,14 @@ import mongoose, { Types } from "mongoose"
 import { BadRequestError, TokenExpiredError } from "../core/CustomError"
 import { userLoginSchema } from "../routes/userSchema"
 import crypto from "crypto"
-import { create } from "./KeyStoreController"
+import { create } from "./keyStoreController"
 import { createTokens, getAccessToken, validateTokenData } from "../auth/utils"
 import { environment, tokenInfo } from "../config"
 import JWT from "../core/JWT"
-import { KeyStoreModel } from "../models/KeyStoreModel"
+import { KeyStoreModel } from "../models/keyStoreModel"
 import { ProtectedRequest } from "../types/app-request"
+import getRole from "./roleController"
+import { RoleCode } from "../models/roleModel"
 
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body
@@ -54,27 +56,52 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 })
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  const { name, email, password } = req.body
+  try {
+    const { name, email, password } = req.body
 
-  const userExists = await User.findOne({ email })
+    const userExists = await User.findOne({ email })
 
-  if (userExists) {
-    res.status(400)
-    throw new Error("User already Exists")
-  }
+    if (userExists) {
+      res.status(400)
+      throw new Error("User already Exists")
+    }
 
-  const user = await User.create({ name, email, password })
-
-  if (user) {
-    generateToken(res, user._id as mongoose.Types.ObjectId)
-    res.status(201)
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+    const user = await User.create({
+      name,
+      email,
+      password,
+      roles: [await getRole(RoleCode.USER)],
     })
-  } else {
-    throw new BadRequestError("Invalid user credentials")
+
+    if (user) {
+      const accessTokenKey = crypto.randomBytes(64).toString("hex")
+      const refreshTokenKey = crypto.randomBytes(64).toString("hex")
+      await create(user, accessTokenKey, refreshTokenKey)
+      const tokens = await createTokens(user, accessTokenKey, refreshTokenKey)
+
+      res.cookie("accessToken", tokens.accessToken, {
+        httpOnly: true,
+        secure: environment === "production",
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000, //ms
+      })
+      res.cookie("refreshToken", tokens.refreshToken, {
+        httpOnly: true,
+        secure: environment === "production",
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000, //ms
+      })
+      res.status(201)
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      })
+    } else {
+      throw new BadRequestError("Invalid user credentials")
+    }
+  } catch (error) {
+    console.log(error)
   }
 })
 

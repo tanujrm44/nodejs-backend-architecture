@@ -47,6 +47,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.COLLECTION_NAME = exports.DOCUMENT_NAME = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
+const roleModel_1 = require("./roleModel");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 exports.DOCUMENT_NAME = "User";
 exports.COLLECTION_NAME = "users";
@@ -59,6 +60,15 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true,
         unique: true,
+    },
+    roles: {
+        type: [
+            {
+                type: mongoose_1.Schema.Types.ObjectId,
+                ref: roleModel_1.DOCUMENT_NAME,
+            },
+        ],
+        required: true,
     },
     password: {
         type: String,

@@ -1,6 +1,6 @@
 import { dbURI } from "."
-import { ApiKeyModel } from "../models/ApiKeyModel"
-import { Permission } from "../models/ApiKeyModel"
+import { ApiKeyModel } from "../models/apiKeyModel"
+import { Permission } from "../models/apiKeyModel"
 import mongoose from "mongoose"
 import crypto from "crypto"
 

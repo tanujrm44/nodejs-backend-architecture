@@ -1,5 +1,5 @@
 import { RequestHandler } from "express"
-import { Permission } from "../models/ApiKeyModel"
+import { Permission } from "../models/apiKeyModel"
 import { PublicRequest } from "../types/app-request"
 import { ForbiddenError } from "../core/CustomError"
 

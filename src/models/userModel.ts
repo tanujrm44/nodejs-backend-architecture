@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose"
+import { DOCUMENT_NAME as ROLE_DOCUMENT_NAME, RoleCode } from "./roleModel"
 import bcrypt from "bcryptjs"
 
 export interface UserDoc extends Document {
@@ -6,6 +7,7 @@ export interface UserDoc extends Document {
   name?: string
   email?: string
   password?: string
+  roles: Types.ObjectId[]
   matchPassword?: (enteredPassword: string) => Promise<boolean>
 }
 
@@ -26,6 +28,15 @@ const userSchema = new Schema<UserDoc>(
       type: String,
       required: true,
       unique: true,
+    },
+    roles: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: ROLE_DOCUMENT_NAME,
+        },
+      ],
+      required: true,
     },
     password: {
       type: String,
