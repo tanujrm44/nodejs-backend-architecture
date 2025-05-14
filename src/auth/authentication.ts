@@ -15,13 +15,13 @@ import asyncHandler from "../helpers/asyncHandler"
 const router = express.Router()
 
 export default router.use(
-  validator(schema.auth, ValidationSource.HEADER),
   asyncHandler(
     async (req: ProtectedRequest, res: Response, next: NextFunction) => {
-      req.accessToken = getAccessToken(req.headers.authorization)
-
       try {
-        const payload = await JWT.validate(req.accessToken, tokenInfo.secret)
+        const payload = await JWT.validate(
+          req.cookies.accessToken,
+          tokenInfo.secret
+        )
         validateTokenData(payload)
 
         const user = await User.findById(new Types.ObjectId(payload.sub))

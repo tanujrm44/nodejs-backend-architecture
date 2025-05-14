@@ -62,8 +62,10 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     const userExists = await User.findOne({ email })
 
     if (userExists) {
-      res.status(400)
-      throw new Error("User already Exists")
+      res.status(400).json({
+        message: "User already exists",
+      })
+      return
     }
 
     const user = await User.create({
@@ -101,15 +103,14 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       throw new BadRequestError("Invalid user credentials")
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    res.status(500).json({ message: "Internal server error" })
   }
 })
 
 export const refreshAccessToken = asyncHandler(
   async (req: ProtectedRequest, res: Response) => {
-    req.accessToken = getAccessToken(req.headers.authorization)
-
-    const accessTokenPayload = await JWT.decode(req.accessToken)
+    const accessTokenPayload = await JWT.decode(req.cookies.accessToken)
     validateTokenData(accessTokenPayload)
 
     const user = await User.findById(new Types.ObjectId(accessTokenPayload.sub))
