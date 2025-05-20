@@ -6,12 +6,12 @@ import userRoutes from "./routes/userRoutes"
 import { corsUrl, environment, port } from "./config"
 import todoRoutes from "./routes/todoRoutes"
 import { ApiError, ErrorType } from "./core/ApiError"
-import Logger from "./core/Logger"
+// import Logger from "./core/Logger"
 import { InternalError } from "./core/CustomError"
 
 const app = express()
 
-app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }))
+app.use(cors({ origin: corsUrl }))
 
 app.use(cookieParser())
 
@@ -25,16 +25,16 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
     ApiError.handle(err, res)
 
-    if (err.type === ErrorType.INTERNAL) {
-      Logger.error(
-        `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
-      )
-    } else {
-      Logger.error(
-        `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
-      )
-    }
-    Logger.error(err.stack)
+    // if (err.type === ErrorType.INTERNAL) {
+    //   Logger.error(
+    //     `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
+    //   )
+    // } else {
+    //   Logger.error(
+    //     `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
+    //   )
+    // }
+    // Logger.error(err.stack)
 
     if (environment === "development") {
       res.status(500).send({

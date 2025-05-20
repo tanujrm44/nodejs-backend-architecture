@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-import Logger from "../core/Logger"
-import { db } from "../config"
+// import Logger from "../core/Logger"
+import { db, environment } from "../config"
 
 // Build the connection string
 export const dbURI = `mongodb://${db.user}:${encodeURIComponent(db.password)}@${
@@ -15,7 +15,7 @@ const options = {
   socketTimeoutMS: 45000,
 }
 
-Logger.debug(dbURI)
+// Logger.debug(dbURI)
 
 function setRunValidators() {
   return { runValidators: true }
@@ -24,46 +24,48 @@ function setRunValidators() {
 mongoose.set("strictQuery", true)
 
 // Create the database connection
-mongoose
-  .plugin((schema: any) => {
-    schema.pre("findOneAndUpdate", setRunValidators)
-    schema.pre("updateMany", setRunValidators)
-    schema.pre("updateOne", setRunValidators)
-    schema.pre("update", setRunValidators)
-  })
-  .connect(dbURI, options)
-  .then(() => {
-    Logger.info("Mongoose connection done")
-  })
-  .catch(e => {
-    Logger.info("Mongoose connection error")
-    Logger.error(e)
-  })
+if (environment !== "test") {
+  mongoose
+    .plugin((schema: any) => {
+      schema.pre("findOneAndUpdate", setRunValidators)
+      schema.pre("updateMany", setRunValidators)
+      schema.pre("updateOne", setRunValidators)
+      schema.pre("update", setRunValidators)
+    })
+    .connect(dbURI, options)
+    .then(() => {
+      // Logger.info("Mongoose connection done")
+    })
+    .catch(e => {
+      // Logger.info("Mongoose connection error")
+      // Logger.error(e)
+    })
+}
 
 // CONNECTION EVENTS
 // When successfully connected
-mongoose.connection.on("connected", () => {
-  Logger.debug("Mongoose default connection open to " + dbURI)
-})
+// mongoose.connection.on("connected", () => {
+//   Logger.debug("Mongoose default connection open to " + dbURI)
+// })
 
-// If the connection throws an error
-mongoose.connection.on("error", err => {
-  Logger.error("Mongoose default connection error: " + err)
-})
+// // If the connection throws an error
+// mongoose.connection.on("error", err => {
+//   Logger.error("Mongoose default connection error: " + err)
+// })
 
-// When the connection is disconnected
-mongoose.connection.on("disconnected", () => {
-  Logger.info("Mongoose default connection disconnected")
-})
+// // When the connection is disconnected
+// mongoose.connection.on("disconnected", () => {
+//   Logger.info("Mongoose default connection disconnected")
+// })
 
-// If the Node process ends, close the Mongoose connection
-process.on("SIGINT", () => {
-  mongoose.connection.close().finally(() => {
-    Logger.info(
-      "Mongoose default connection disconnected through app termination"
-    )
-    process.exit(0)
-  })
-})
+// // If the Node process ends, close the Mongoose connection
+// process.on("SIGINT", () => {
+//   mongoose.connection.close().finally(() => {
+//     Logger.info(
+//       "Mongoose default connection disconnected through app termination"
+//     )
+//     process.exit(0)
+//   })
+// })
 
 export const connection = mongoose.connection
