@@ -12,9 +12,6 @@ export default router.use(
       throw new ForbiddenError("Permission Denied")
     }
 
-    console.log("req.currentRoleCodes", req.currentRoleCodes)
-    console.log("req.user.roles", req.user.roles)
-
     const roles = await RoleModel.find({
       code: {
         $in: req.currentRoleCodes,

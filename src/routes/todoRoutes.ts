@@ -23,7 +23,7 @@ router.use(authentication)
 router
   .route("/")
   .post(createTodo)
-  .get(role(RoleCode.ADMIN), authorization, getTodos)
+  .get(role(RoleCode.USER), authorization, getTodos)
 router.route("/:id").put(editTodo).delete(deleteTodo)
 
 export default router
