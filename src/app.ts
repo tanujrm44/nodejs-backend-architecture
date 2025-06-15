@@ -8,6 +8,7 @@ import todoRoutes from "./routes/todoRoutes"
 import { ApiError, ErrorType } from "./core/ApiError"
 // import Logger from "./core/Logger"
 import { InternalError } from "./core/CustomError"
+import swagger from "./swagger"
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/users", userRoutes)
 app.use("/api/todo", todoRoutes)
+app.use("/api-docs", swagger)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
