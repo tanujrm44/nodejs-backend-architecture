@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container-name: todo-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    networks:
+      - todo-network
+
+  mongo:
+    image: mongo
+    container-name: mongo
+    ports: 
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - todo-network
+      
+  redis:
+    image: redis
+    container-name: redis
+    command: ["redis-server", "--requirepass", "password"]
+    ports: 
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - todo-network

@@ -23,6 +23,8 @@ app.use("/api/users", userRoutes)
 app.use("/api/todo", todoRoutes)
 app.use("/api-docs", swagger)
 
+console.log(process.env.REDIS_HOST)
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
     ApiError.handle(err, res)

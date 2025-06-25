@@ -25,6 +25,8 @@ const getTodos = asyncHandler(
     // Try fetching todos from cache first
     let todos = await todoCache.fetchUserTodos(req.user._id.toString())
 
+    console.log("cache found", todos)
+
     if (!todos) {
       // If not in cache, fetch from database
       todos = await Todo.find({ user: req.user._id })
