@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node dist/src/server.js",
     "dev": "tsc-watch --onSuccess \"node dist/src/server.js\"",
