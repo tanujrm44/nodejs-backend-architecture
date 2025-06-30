@@ -3,8 +3,6 @@ import { port } from "./config"
 import app from "./app"
 import dotenv from "dotenv"
 
-console.log("starting server!!!!!!!")
-
 dotenv.config()
 app.listen(port, () => {
   // Logger.info(`server running on port : ${port}`)

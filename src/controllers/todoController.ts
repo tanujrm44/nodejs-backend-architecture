@@ -1,4 +1,4 @@
-import todoCache from "../cache/todoCache"
+// import todoCache from "../cache/todoCache"
 import asyncHandler from "../helpers/asyncHandler"
 import Todo from "../models/todoModel"
 import { ProtectedRequest } from "../types/app-request"
@@ -14,7 +14,7 @@ const createTodo = asyncHandler(
 
     await Todo.create({ user: req.user, title, description })
 
-    await todoCache.invalidateUserTodos(req.user._id.toString())
+    // await todoCache.invalidateUserTodos(req.user._id.toString())
 
     res.status(201).json({ title, description })
   }
@@ -23,9 +23,10 @@ const createTodo = asyncHandler(
 const getTodos = asyncHandler(
   async (req: ProtectedRequest, res: Response): Promise<void> => {
     // Try fetching todos from cache first
-    let todos = await todoCache.fetchUserTodos(req.user._id.toString())
+    // let todos = await todoCache.fetchUserTodos(req.user._id.toString())
+    let todos: any = []
 
-    console.log("cache found", todos)
+    // console.log("cache found", todos)
 
     if (!todos) {
       // If not in cache, fetch from database
@@ -36,7 +37,7 @@ const getTodos = asyncHandler(
       }
 
       // Save to cache
-      await todoCache.saveUserTodos(req.user._id.toString(), todos)
+      // await todoCache.saveUserTodos(req.user._id.toString(), todos)
     }
 
     res.status(200).json(todos)
@@ -71,7 +72,7 @@ const editTodo = asyncHandler(async (req: ProtectedRequest, res: Response) => {
 
   const updatedTodo = await todo.save()
 
-  await todoCache.invalidateUserTodos(req.user._id.toString())
+  // await todoCache.invalidateUserTodos(req.user._id.toString())
 
   res.json(updatedTodo)
 })
@@ -82,7 +83,7 @@ const deleteTodo = asyncHandler(
 
     if (todo) {
       await todo.deleteOne()
-      await todoCache.invalidateUserTodos(req.user._id.toString())
+      // await todoCache.invalidateUserTodos(req.user._id.toString())
       res.json({ message: "Todo removed" })
     } else {
       res.status(404)
