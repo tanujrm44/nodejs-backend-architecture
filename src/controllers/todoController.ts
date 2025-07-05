@@ -24,7 +24,8 @@ const getTodos = asyncHandler(
   async (req: ProtectedRequest, res: Response): Promise<void> => {
     // Try fetching todos from cache first
     // let todos = await todoCache.fetchUserTodos(req.user._id.toString())
-    let todos: any = []
+    let todos: any = await Todo.find({ user: req.user._id })
+    // if (todos) {
 
     // console.log("cache found", todos)
 

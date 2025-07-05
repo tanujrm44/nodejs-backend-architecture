@@ -2,10 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
-    "start": "node dist/src/server.js",
-    "dev": "tsc-watch --onSuccess \"node dist/src/server.js\"",
+    "start": "node dist/server.js",
+    "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
     "test": "NODE_ENV=test vitest --run",
     "build": "tsc",
     "create:apikey": "node dist/database/seedApiKey.js"

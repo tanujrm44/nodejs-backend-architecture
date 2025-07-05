@@ -19,13 +19,13 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use("/", (req, res) => {
-  res.send("Hello World!")
-})
-
 app.use("/api/users", userRoutes)
 app.use("/api/todo", todoRoutes)
 app.use("/api-docs", swagger)
+
+app.use("/", (req, res) => {
+  res.json({ message: "Hello World!!!!!!!" })
+})
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {

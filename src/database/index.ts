@@ -3,9 +3,7 @@ import mongoose from "mongoose"
 import { db, environment } from "../config"
 
 // Build the connection string
-export const dbURI = `mongodb://${db.user}:${encodeURIComponent(db.password)}@${
-  db.host
-}:${db.port}/${db.name}`
+export const dbURI = process.env.MONGODB_URI as string
 
 const options = {
   autoIndex: true,

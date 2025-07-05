@@ -76,7 +76,7 @@ router.use(authentication)
  *       400:
  *         description: Invalid input data
  */
-router.route("/").post(createTodo)
+router.route("/").post(role(RoleCode.USER), authorization, createTodo)
 
 /**
  * @swagger
