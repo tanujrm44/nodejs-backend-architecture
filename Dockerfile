@@ -15,6 +15,8 @@ RUN pnpm install
 # Copy application code
 COPY . .
 
+RUN ls -R src
+
 # Build the TypeScript application
 RUN pnpm build
 
