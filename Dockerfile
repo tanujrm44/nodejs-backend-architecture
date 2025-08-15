@@ -1,5 +1,5 @@
 # Use Node.js Alpine as base image
-FROM --platform=linux/arm64 node:alpine
+FROM node:alpine
 
 # Set working directory
 WORKDIR /app
