@@ -12,9 +12,29 @@ env:
   ECS_CLUSTER: todo-app-cluster
   ECS_SERVICE: todo-app-service
   ECS_TASK_DEFINITION: todo-app-task-definition
+  NODE_ENV: test
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
   deploy:
+    needs: test  # This ensures deploy only runs if tests pass
     runs-on: ubuntu-latest
     
     steps:
