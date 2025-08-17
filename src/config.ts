@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export const environment = process.env.NODE_ENV
-export const port = process.env.PORT
+export const port = process.env.PORT || 8080
 
 export const logDirectory = process.env.LOG_DIR
 
@@ -26,10 +26,10 @@ export const tokenInfo = {
   refreshTokenValidity: parseInt(
     process.env.REFRESH_TOKEN_VALIDITY_SEC ?? "86400"
   ),
-  issuer: process.env.TOKEN_ISSUER ?? "",
-  audience: process.env.TOKEN_AUDIENCE ?? "",
-  secret: process.env.TOKEN_SECRET ?? "",
-  algorithm: process.env.TOKEN_ALGORITHM ?? "",
+  issuer: process.env.TOKEN_ISSUER ?? "todo-backend",
+  audience: process.env.TOKEN_AUDIENCE ?? "todo-frontend",
+  secret: process.env.TOKEN_SECRET ?? "abc123def456",
+  algorithm: process.env.TOKEN_ALGORITHM ?? "HS256",
 }
 
 export const redis = {
