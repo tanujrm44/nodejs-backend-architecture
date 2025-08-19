@@ -24,7 +24,7 @@ app.use("/api/todo", todoRoutes)
 app.use("/api-docs", swagger)
 
 app.use("/", (req, res) => {
-  res.json({ message: "Hello World!!!!!!!" })
+  res.json({ message: "Hey there!" })
 })
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
