@@ -11,6 +11,7 @@ env:
   ECS_CLUSTER: todo-app-cluster
   ECS_SERVICE: todo-app-service
   ECS_TASK_DEFINITION: todo-app-task-definition
+  NODE_ENV: test
 
 jobs:
   test:
